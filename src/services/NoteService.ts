@@ -21,7 +21,6 @@ const api = axios.create({
 export async function fetchNotes(params: FetchNotesParams) : Promise<FetchNotesResponse>{
     const {data} = await api.get<FetchNotesResponse>("/notes",{params})
     
-    
     return data
 }
 
