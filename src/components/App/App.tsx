@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import css from './App.module.css';
-import { fetchNotes } from "../../services/NoteService";
+import { fetchNotes } from "../services/noteService";
 import NoteList from '../NoteList/NoteList';
 import Pagination from '../Pagination/Pagination';
 import { useQuery } from '@tanstack/react-query';
