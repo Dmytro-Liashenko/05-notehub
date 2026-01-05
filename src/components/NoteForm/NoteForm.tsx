@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
     .max(50, "Title cannot exceed 50 characters")
     .required("Required"),
     content: Yup.string()
-    .max(300, "Content cannot exceed 300 characters"),
+    .max(500, "Content cannot exceed 500 characters"),
     tag: Yup.mixed<NoteTag>()
     .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'], 'Invalid tag')
     .required("Required")
@@ -50,8 +50,15 @@ export default function NoteForm ({onClose}: NoteFormProps){
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={(values, {setSubmitting}) => {
-                createMutation.mutate(values); 
-                setSubmitting(false)
+                createMutation.mutate(values,{
+                    onSuccess: () => {
+                    setSubmitting(false)
+                    },
+                    onError: () => {
+                        setSubmitting(false)
+                    }
+                }
+                )
             }} 
             >
                 {({isSubmitting}) => (
