@@ -19,6 +19,8 @@ function App() {
   const [debouncedSearch] = useDebounce(search, 1000)
   const[isModalOpen, setIsModalOpen] = useState(false)
 
+
+
   const {data, isError, isLoading} = useQuery({
       queryKey: ["notes", currentPage, debouncedSearch],
       queryFn: () => fetchNotes({
@@ -31,6 +33,12 @@ function App() {
 
   })
 
+  const handleSearchChange = (value: string) => {
+    setSearch(value)
+    setCurrentPage(1)
+  }
+
+
 if(isError) return <ErrorNotification/>
 if(isLoading) return <Loader/>
 
@@ -38,7 +46,7 @@ return (
   <>
   <div className={css.app}>
       <header className={css.toolbar}>
-        {<SearchBox value={search} onChange={setSearch}/>}
+        {<SearchBox value={search} onChange={handleSearchChange}/>}
         {data && (<Pagination currentPage={currentPage} totalPages={data.totalPages || 0} onPageChange={setCurrentPage} />)}
 
                 <button className={css.button} onClick={() => setIsModalOpen(true)}>
